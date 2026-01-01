@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERIS | Automotive Excellence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'luxury-black': '#050505',
+                        'luxury-white': '#F5F5F5',
+                        'luxury-gray': '#1A1A1A',
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.2em',
+                    },
+                    animation: {
+                        'blob': 'blob 20s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0a0a0a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #404040; border-radius: 2px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #666; }
+        
+        /* Hide scrollbar for collection slider */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { 
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Reveal Animation Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        /* Navigation Glass */
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Video Fade In */
+        .video-fade-in {
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .video-loaded {
+            opacity: 1; /* slightly transparent to blend with bg */
+        }
+
+        /* Split Scroll Section Styles */
+        .split-panel {
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+        
+        .car-mask {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Gradient Mask for New Section */
+        .vignette-mask {
+            mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-luxury-black text-luxury-white font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden">
+
+    <!-- Enhanced Moving Gradient Background Layer -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- Original Blobs -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-purple-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-blue-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] bg-neutral-800/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        
+        <!-- New Conic Gradient for Movement -->
+        <div class="absolute inset-0 opacity-10 mix-blend-color-dodge">
+            <div class="absolute inset-[-50%] w-[200%] h-[200%] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,255,255,0.1)_180deg,transparent_360deg)] animate-spin-slow"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-[90%] mx-auto h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="font-bold text-xl tracking-tighter z-50">
+                AERIS
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-8 text-xs font-medium tracking-widest text-neutral-400">
+                <a href="#models" class="hover:text-white transition-colors duration-300">MODELS</a>
+                <a href="#pleasure" class="hover:text-white transition-colors duration-300">EXPERIENCE</a>
+                <a href="#bespoke" class="hover:text-white transition-colors duration-300">BESPOKE</a>
+                <a href="#motorsport" class="hover:text-white transition-colors duration-300">MOTORSPORT</a>
+                <a href="#innovation" class="hover:text-white transition-colors duration-300">INNOVATION</a>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="hidden md:flex items-center space-x-6">
+                <button class="text-xs font-semibold uppercase tracking-widest hover:text-neutral-400 transition-colors">Sign In</button>
+                <button class="bg-white text-black px-6 py-2.5 text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all rounded-sm">
+                    Configure
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="lg:hidden z-50 group flex flex-col items-end space-y-1.5 focus:outline-none">
+                <span class="block w-6 h-0.5 bg-white group-hover:w-4 transition-all duration-300"></span>
+                <span class="block w-4 h-0.5 bg-white group-hover:w-6 transition-all duration-300"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Fullscreen Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-luxury-black/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) flex items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center">
+            <a href="#models" class="text-3xl font-light text-neutral-400 hover:text-white transition-colors mobile-link">Models</a>
+            <a href="#pleasure" class="text-3xl font-light text-neutral-400 hover:text-white transition-colors mobile-link">Experience</a>
+            <a href="#bespoke" class="text-3xl font-light text-neutral-400 hover:text-white transition-colors mobile-link">Bespoke</a>
+            <a href="#motorsport" class="text-3xl font-light text-neutral-400 hover:text-white transition-colors mobile-link">Motorsport</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden z-10 bg-black">
+        
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0">
+            <video autoplay muted loop playsinline id="hero-video" class="w-full h-full object-cover video-fade-in opacity-60">
+                <source src="porsche-landing-page.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-black/40 to-black/30"></div>
+            <!-- Grain Texture Overlay -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxmaWx0ZXIgaWQ9J24nPjxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjUnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWxsPSd0cmFuc3BhcmVudCcvPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-20"></div>
+        </div>
+
+        <!-- Typography Layer -->
+        <div class="relative z-10 text-center space-y-6 mt-12 md:mt-0 reveal-on-scroll">
+            <!-- Porsche Logo Image -->
+            <div class="flex flex-col items-center space-y-4 mb-6">
+                <img src="porsche-logo-image.png" alt="Porsche" class="w-[24px] h-auto">
+                <img src="porsche-logo.png" alt="Porsche Logo" class="w-[150px] h-auto">
+            </div>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none mix-blend-overlay text-white">
+                VELOCITY <span class="font-extralight text-neutral-400">GT</span>
+            </h1>
+            <p class="text-sm md:text-base tracking-[0.2em] text-neutral-300 uppercase font-medium">The New Standard of Silence</p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 flex flex-col items-center space-y-4 animate-pulse opacity-50 z-20">
+            <span class="text-[10px] tracking-widest uppercase font-bold">Scroll</span>
+            <div class="h-12 w-px bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Brand Philosophy -->
+    <section class="py-24 md:py-32 relative z-10">
+        <div class="max-w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 reveal-on-scroll">
+                <span class="text-xs font-bold tracking-[0.2em] text-neutral-500 border-l-2 border-white pl-4 uppercase">Philosophy</span>
+                <h2 class="text-3xl md:text-5xl font-medium tracking-tight leading-tight">
+                    Silence isn't empty.<br>
+                    <span class="text-neutral-500 font-light">It's full of answers.</span>
+                </h2>
+            </div>
+            <div class="reveal-on-scroll delay-100 bg-neutral-900/30 p-8 border border-white/5 backdrop-blur-sm rounded-sm">
+                <p class="text-neutral-300 font-light leading-relaxed text-base mb-8">
+                    We don't just build cars; we sculpt movement. The Aeris design philosophy is rooted in reduction—removing the unnecessary until only the essential remains. A convergence of aerodynamic purity and tactile luxury.
+                </p>
+                <a href="#" class="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-white hover:text-neutral-400 transition-colors group">
+                    <span>Read our story</span>
+                    <iconify-icon icon="lucide:arrow-right" width="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Models -->
+    <section id="models" class="py-32 relative z-10 bg-gradient-to-b from-luxury-black to-neutral-900/20">
+        <div class="max-w-[90%] mx-auto mb-16 flex justify-between items-end reveal-on-scroll">
+            <div>
+                <span class="text-xs font-bold text-neutral-500 tracking-widest uppercase mb-2 block">The Garage</span>
+                <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">The Collection</h2>
+            </div>
+            <div class="hidden md:flex space-x-2">
+                <button id="collection-prev" class="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <iconify-icon icon="lucide:arrow-left" width="20"></iconify-icon>
+                </button>
+                <button id="collection-next" class="w-12 h-12 border border-neutral-800 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <iconify-icon icon="lucide:arrow-right" width="20"></iconify-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slider Container -->
+        <div id="collection-slider" class="overflow-x-auto pb-12 hide-scrollbar px-[5%] md:px-[5%] flex space-x-8 snap-x snap-mandatory" style="scroll-behavior: smooth;">
+            <!-- Card 1 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche1-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Model S">
+                    <div class="absolute top-4 right-4 bg-white text-black px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Electric</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Spectre GT</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $125,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">Grand Touring reimagined for the electric age.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">2.8s</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">0-60 mph</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">450mi</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Range</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll delay-100 hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche2-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Model X">
+                    <div class="absolute top-4 right-4 bg-neutral-800 text-white border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Hybrid</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Valour SUV</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $98,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">Dominance meets uncompromising comfort.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">750</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Horsepower</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">AWD</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Drivetrain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll delay-150 hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche3-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Roadster">
+                    <div class="absolute top-4 right-4 bg-white text-black px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Performance</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Phantom Roadster</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $189,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">Open-air exhilaration with unmatched precision.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">1.9s</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">0-60 mph</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">200mph</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Top Speed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll delay-200 hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche4-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Coupe">
+                    <div class="absolute top-4 right-4 bg-neutral-800 text-white border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Luxury</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Eclipse Coupe</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $145,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">Sleek design meets cutting-edge technology.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">3.2s</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">0-60 mph</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">RWD</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Drivetrain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll delay-250 hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche5-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Hypercar">
+                    <div class="absolute top-4 right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Limited</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Apex Hypercar</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $2,500,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">The ultimate expression of automotive perfection.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">1.7s</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">0-60 mph</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">1500</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Horsepower</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll delay-300 hover:-translate-y-2 transition-transform duration-500">
+                <div class="h-[300px] md:h-[350px] overflow-hidden relative">
+                    <img src="porsche6-usable.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" alt="Wagon">
+                    <div class="absolute top-4 right-4 bg-neutral-800 text-white border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm">Versatile</div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h3 class="text-2xl font-bold tracking-tight">Legacy Wagon</h3>
+                        <span class="text-xs text-neutral-400 font-mono">FROM $78,000</span>
+                    </div>
+                    <p class="text-sm text-neutral-400 font-medium mb-6">Practical luxury for the modern lifestyle.</p>
+                    <div class="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
+                        <div class="text-center">
+                            <span class="block text-lg font-bold text-white">4.5s</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">0-60 mph</span>
+                        </div>
+                        <div class="text-center border-l border-white/5">
+                            <span class="block text-lg font-bold text-white">85ft³</span>
+                            <span class="text-[10px] text-neutral-500 uppercase tracking-wider">Cargo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: CAR BUILT FOR PLEASURE -->
+    <section id="pleasure" class="relative z-20 h-[300vh] bg-black">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+            
+            <div class="absolute inset-0 w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center px-[5%] max-w-[90%] mx-auto">
+                
+                <!-- Left: Text Content -->
+                <div id="pleasure-text" class="space-y-6" style="opacity: 0; transform: translateX(-80px); will-change: transform, opacity;">
+                    <span class="block text-xs font-bold text-green-500 uppercase tracking-widest mb-6 border-l-2 border-green-500 pl-4">Luxury Design</span>
+                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[1.1]">
+                        Car built for<br>
+                        <span class="text-neutral-500 italic font-serif font-thin">pleasure.</span>
+                    </h2>
+                    <p class="text-base md:text-lg text-neutral-400 font-light leading-relaxed max-w-xl">
+                        Designed around the driver. Hand-stitched leather meets haptic feedback controls in a symphony of tactile perfection. Every detail crafted to elevate your driving experience.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-3">
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <span class="text-sm text-neutral-300">Premium Materials</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <span class="text-sm text-neutral-300">Ergonomic Design</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-3">
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <span class="text-sm text-neutral-300">Advanced Tech</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <span class="text-sm text-neutral-300">Acoustic Perfection</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="inline-flex items-center space-x-3 bg-white text-black px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all rounded-sm group">
+                        <span>Explore Interior</span>
+                        <iconify-icon icon="lucide:arrow-right" width="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </button>
+                </div>
+
+                <!-- Right: Image -->
+                <div id="pleasure-image" class="relative" style="opacity: 0; will-change: opacity;">
+                    <div class="relative md:scale-110 lg:scale-125">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-[#202020] to-transparent blur-3xl opacity-30 rounded-lg"></div>
+                        <img src="porsche-section.png" 
+                             alt="Porsche Interior" 
+                             class="relative w-full h-auto rounded-lg shadow-2xl">
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Customization Configurator -->
+    <section id="bespoke" class="py-24 bg-black overflow-hidden relative z-10">
+        <!-- Decorative Background Text -->
+        <h2 class="absolute -right-24 top-24 text-[12rem] md:text-[15rem] font-bold text-white/[0.02] pointer-events-none select-none leading-none tracking-tighter">
+            BESPOKE
+        </h2>
+
+        <div class="max-w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 h-full relative z-10">
+            
+            <!-- Left: Visualizer -->
+            <div class="lg:col-span-8 flex flex-col justify-center reveal-on-scroll">
+                <div class="relative w-full aspect-[16/9] bg-gradient-to-br from-neutral-800/30 to-black rounded-lg flex items-center justify-center border border-white/10 p-8 shadow-2xl">
+                    <img id="config-image" src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2525&auto=format&fit=crop" alt="Configuration" class="w-full h-full object-contain drop-shadow-2xl grayscale-[20%] transition-all duration-500">
+                    
+                    <!-- Hotspots -->
+                    <div class="absolute top-1/3 left-1/2 w-3 h-3 bg-white rounded-full animate-ping opacity-50 cursor-pointer"></div>
+                    <div class="absolute top-1/3 left-1/2 w-3 h-3 border-2 border-white rounded-full cursor-pointer hover:scale-150 transition-transform"></div>
+                </div>
+                <div class="flex justify-between items-center mt-6 text-xs font-mono text-neutral-500 uppercase tracking-wider">
+                    <span>Rotation: 45°</span>
+                    <span>Config ID: #AER-992</span>
+                </div>
+            </div>
+
+            <!-- Right: Controls -->
+            <div class="lg:col-span-4 flex flex-col justify-center space-y-8 reveal-on-scroll delay-100">
+                <div>
+                    <h3 class="text-3xl font-bold tracking-tight mb-2">Build Your Legacy</h3>
+                    <p class="text-sm text-neutral-400">Curate every nuance of your vehicle.</p>
+                </div>
+
+                <!-- Model Selector -->
+                <div class="space-y-4">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Select Model</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="changeConfig('model', 'sport')" id="model-sport" class="model-btn px-3 py-4 border border-white/30 bg-white/10 rounded text-[10px] text-white transition-all font-semibold uppercase tracking-wider flex flex-col items-center space-y-2">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3774/3774278.png" class="w-8 h-8 invert opacity-90" alt="Sport">
+                            <span>Sport</span>
+                        </button>
+                        <button onclick="changeConfig('model', 'suv')" id="model-suv" class="model-btn px-3 py-4 border border-neutral-800 rounded text-[10px] text-neutral-400 transition-all uppercase tracking-wider hover:bg-white hover:text-black hover:border-white flex flex-col items-center space-y-2">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3097/3097138.png" class="w-8 h-8 opacity-50" alt="SUV">
+                            <span>SUV</span>
+                        </button>
+                        <button onclick="changeConfig('model', 'sedan')" id="model-sedan" class="model-btn px-3 py-4 border border-neutral-800 rounded text-[10px] text-neutral-400 transition-all uppercase tracking-wider hover:bg-white hover:text-black hover:border-white flex flex-col items-center space-y-2">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3202/3202003.png" class="w-8 h-8 opacity-50" alt="Sedan">
+                            <span>Sedan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Configuration Tabs -->
+                <div class="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Exterior Color -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Exterior Paint</label>
+                        <div class="flex space-x-3">
+                            <button onclick="changeConfig('paint', 'void')" class="paint-btn w-10 h-10 rounded-full bg-[#0a0a0a] border-2 border-white/30 hover:scale-110 transition-transform ring-2 ring-white ring-offset-2 ring-offset-black" aria-label="Void Black"></button>
+                            <button onclick="changeConfig('paint', 'ghost')" class="paint-btn w-10 h-10 rounded-full bg-[#e5e5e5] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Ghost White"></button>
+                            <button onclick="changeConfig('paint', 'midnight')" class="paint-btn w-10 h-10 rounded-full bg-[#1e293b] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Midnight Blue"></button>
+                            <button onclick="changeConfig('paint', 'ember')" class="paint-btn w-10 h-10 rounded-full bg-[#7f1d1d] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Ember Red"></button>
+                            <button onclick="changeConfig('paint', 'graphite')" class="paint-btn w-10 h-10 rounded-full bg-[#52525b] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Graphite"></button>
+                        </div>
+                    </div>
+
+                    <!-- Wheels -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Forged Wheels</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="changeConfig('wheels', 'aero')" class="wheel-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all text-left">
+                                21" Aero Blade
+                            </button>
+                            <button onclick="changeConfig('wheels', 'turbine')" class="wheel-btn px-3 py-2.5 border border-white/30 bg-white/10 rounded text-[10px] text-white transition-all text-left font-semibold">
+                                22" Turbine
+                            </button>
+                            <button onclick="changeConfig('wheels', 'carbon')" class="wheel-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all text-left">
+                                21" Carbon Spoke
+                            </button>
+                            <button onclick="changeConfig('wheels', 'performance')" class="wheel-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all text-left">
+                                23" Performance
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interior Material -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Interior Material</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="changeConfig('interior', 'leather')" class="interior-btn px-3 py-2.5 border border-white/30 bg-white/10 rounded text-[10px] text-white transition-all font-semibold">
+                                Premium Leather
+                            </button>
+                            <button onclick="changeConfig('interior', 'alcantara')" class="interior-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all">
+                                Alcantara Sport
+                            </button>
+                            <button onclick="changeConfig('interior', 'vegan')" class="interior-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all">
+                                Vegan Comfort
+                            </button>
+                            <button onclick="changeConfig('interior', 'carbon')" class="interior-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all">
+                                Carbon Weave
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Drive Mode -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Performance Mode</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="changeConfig('mode', 'comfort')" class="mode-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all text-center">
+                                Comfort
+                            </button>
+                            <button onclick="changeConfig('mode', 'sport')" class="mode-btn px-3 py-2.5 border border-white/30 bg-white/10 rounded text-[10px] text-white transition-all text-center font-semibold">
+                                Sport+
+                            </button>
+                            <button onclick="changeConfig('mode', 'track')" class="mode-btn px-3 py-2.5 border border-neutral-800 rounded text-[10px] text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all text-center">
+                                Track
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Autonomous Features -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Autonomous Suite</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
+                                <span class="text-[10px] text-neutral-300">Full Self-Driving</span>
+                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white" checked>
+                            </label>
+                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
+                                <span class="text-[10px] text-neutral-300">Enhanced Autopilot</span>
+                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white">
+                            </label>
+                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
+                                <span class="text-[10px] text-neutral-300">Parking Assist Pro</span>
+                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white" checked>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-neutral-900 flex justify-between items-center">
+                    <div>
+                        <span class="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-1">Estimated Price</span>
+                        <span class="text-2xl font-bold tracking-tight">$142,500</span>
+                    </div>
+                    <button class="bg-white text-black px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors rounded-sm shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Finalize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Split Sponsorship Scroll Animation Section -->
+    <section id="motorsport" class="h-[250vh] relative z-10" style="view-timeline-name: --sponsor-scroll;">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-luxury-black" id="sticky-container">
+            
+            <!-- Center Content (Revealed) -->
+            <div class="absolute z-10 text-center space-y-6 opacity-0 scale-90 transition-all duration-700 delay-100" id="center-content">
+                <span class="text-xs font-bold text-blue-500 tracking-[0.3em] uppercase">Global Partners</span>
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter text-white">SPONSORSHIPS</h2>
+                <p class="max-w-md mx-auto text-neutral-400 text-sm leading-relaxed">Fueling the future of competitive racing with sustainable energy and unparalleled precision.</p>
+                <button class="px-8 py-3 border border-white/20 bg-white/5 backdrop-blur text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all rounded-sm">
+                    Read More
+                </button>
+            </div>
+
+            <!-- Left Panel (Sliding) -->
+            <div class="absolute left-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="left-panel">
+                <div class="absolute inset-0 bg-[url('porsche1.avif')] bg-cover bg-right grayscale opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                <div class="absolute bottom-12 left-12">
+                    <h3 class="text-xl font-bold tracking-tight">FORMULA E</h3>
+                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Official Partner</p>
+                </div>
+            </div>
+
+            <!-- Right Panel (Sliding) -->
+            <div class="absolute right-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="right-panel">
+                <div class="absolute inset-0 bg-[url('porsche2.avif')] bg-cover bg-left grayscale opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-l from-black/80 to-transparent"></div>
+                <div class="absolute bottom-12 right-12 text-right">
+                    <h3 class="text-xl font-bold tracking-tight">LE MANS</h3>
+                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Endurance Team</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Technology & Innovation -->
+    <section id="innovation" class="py-24 bg-luxury-black relative z-10">
+        <div class="max-w-[80%] mx-auto">
+            <div class="mb-16 reveal-on-scroll">
+                <span class="text-xs font-bold tracking-[0.2em] text-blue-500 uppercase">Innovation</span>
+                <h2 class="text-3xl md:text-5xl font-medium mt-4 tracking-tight">Engineered for Tomorrow</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-75 rounded-lg">
+                    <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:cpu" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Neural AI Core</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Advanced autopilot capabilities powered by our proprietary silicon, learning your driving patterns in real-time.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-100 rounded-lg">
+                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:zap" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Solid State Power</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Next-generation battery architecture delivering 500+ miles of range with sub-15 minute charging.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-150 rounded-lg">
+                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:wind" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Active Aero</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Surfaces that adapt to airflow, optimizing downforce for corners and drag for straight-line speed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ownership/Footer CTA -->
+    <section id="experience" class="py-32 relative overflow-hidden z-10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-30"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-6 reveal-on-scroll">
+            <h2 class="text-4xl md:text-6xl font-medium mb-8 tracking-tighter text-white">Join the Vanguard.</h2>
+            <p class="text-neutral-400 text-base font-light mb-10 max-w-xl mx-auto leading-relaxed">Experience the intersection of art and engineering. Schedule a private viewing at your local atelier.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <button class="w-full md:w-auto px-10 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all rounded-sm">
+                    Find a Retailer
+                </button>
+                <button class="w-full md:w-auto px-10 py-4 border border-white/30 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all rounded-sm">
+                    Contact Concierge
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black pt-24 pb-12 border-t border-neutral-900 relative z-10">
+        <div class="max-w-[80%] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <!-- Brand -->
+                <div class="col-span-1">
+                    <a href="#" class="font-bold text-2xl tracking-tighter text-white block mb-6">AERIS</a>
+                    <p class="text-xs text-neutral-500 leading-relaxed max-w-[200px]">
+                        Redefining modern luxury through silence, speed, and sustainable design.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-[10px] font-bold text-white uppercase tracking-widest mb-6">Vehicles</h4>
+                    <ul class="space-y-4 text-xs font-medium text-neutral-500">
+                        <li><a href="#" class="hover:text-white transition-colors">Spectre GT</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Valour SUV</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Apex One (Concept)</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Fleet Orders</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] font-bold text-white uppercase tracking-widest mb-6">Ownership</h4>
+                    <ul class="space-y-4 text-xs font-medium text-neutral-500">
+                        <li><a href="#" class="hover:text-white transition-colors">Service & Maintenance</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Accessories</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Financial Services</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">App</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[10px] font-bold text-white uppercase tracking-widest mb-6">Company</h4>
+                    <ul class="space-y-4 text-xs font-medium text-neutral-500">
+                        <li><a href="#" class="hover:text-white transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-neutral-900 text-[10px] text-neutral-600 uppercase tracking-wide font-medium">
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="hover:text-neutral-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-neutral-400">Terms of Use</a>
+                    <a href="#" class="hover:text-neutral-400">Legal</a>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-white transition-colors"><iconify-icon icon="lucide:instagram" width="16"></iconify-icon></a>
+                    <a href="#" class="hover:text-white transition-colors"><iconify-icon icon="lucide:twitter" width="16"></iconify-icon></a>
+                    <a href="#" class="hover:text-white transition-colors"><iconify-icon icon="lucide:youtube" width="16"></iconify-icon></a>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    &copy; 2024 Aeris Automotive.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Smooth Reveal on Scroll
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // Video Fade In
+        window.addEventListener('load', () => {
+            const video = document.getElementById('hero-video');
+            if(video) video.classList.add('video-loaded');
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Configurator Logic
+        let currentConfig = {
+            model: 'sport',
+            paint: 'void',
+            wheels: 'turbine',
+            interior: 'leather',
+            mode: 'sport'
+        };
+
+        const carImages = {
+            sport: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2525&auto=format&fit=crop',
+            suv: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg',
+            sedan: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2670&auto=format&fit=crop'
+        };
+
+        function changeConfig(type, value) {
+            const img = document.getElementById('config-image');
+            img.style.opacity = '0.5';
+            img.style.transform = 'scale(0.98)';
+            
+            // Update current config
+            currentConfig[type] = value;
+            
+            // Update active button states
+            updateButtonStates(type, value);
+            
+            setTimeout(() => {
+                // Change car model
+                if(type === 'model') {
+                    img.src = carImages[value];
+                    img.style.filter = 'grayscale(20%)';
+                }
+                
+                // Apply paint effects
+                if(type === 'paint') {
+                    if (value === 'void') img.style.filter = 'grayscale(100%) brightness(0.8)';
+                    if (value === 'ghost') img.style.filter = 'grayscale(100%) brightness(1.2)';
+                    if (value === 'ember') img.style.filter = 'sepia(100%) saturate(300%) hue-rotate(-50deg) brightness(0.8)';
+                    if (value === 'midnight') img.style.filter = 'sepia(100%) saturate(200%) hue-rotate(180deg) brightness(0.6)';
+                    if (value === 'graphite') img.style.filter = 'grayscale(80%) brightness(0.9)';
+                }
+                
+                img.style.opacity = '1';
+                img.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function updateButtonStates(type, value) {
+            // Reset all buttons of this type
+            if(type === 'model') {
+                document.querySelectorAll('.model-btn').forEach(btn => {
+                    btn.classList.remove('border-white/30', 'bg-white/10', 'text-white', 'font-semibold');
+                    btn.classList.add('border-neutral-800', 'text-neutral-400');
+                    btn.querySelector('img').classList.add('opacity-50');
+                    btn.querySelector('img').classList.remove('opacity-90');
+                });
+                const activeBtn = document.getElementById(`model-${value}`);
+                activeBtn.classList.add('border-white/30', 'bg-white/10', 'text-white', 'font-semibold');
+                activeBtn.classList.remove('border-neutral-800', 'text-neutral-400');
+                activeBtn.querySelector('img').classList.remove('opacity-50');
+                activeBtn.querySelector('img').classList.add('opacity-90');
+            }
+            
+            if(type === 'paint') {
+                document.querySelectorAll('.paint-btn').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-black');
+                });
+                event.target.classList.add('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-black');
+            }
+            
+            if(type === 'wheels' || type === 'interior' || type === 'mode') {
+                const btnClass = `.${type}-btn`;
+                document.querySelectorAll(btnClass).forEach(btn => {
+                    btn.classList.remove('border-white/30', 'bg-white/10', 'text-white', 'font-semibold');
+                    btn.classList.add('border-neutral-800', 'text-neutral-400');
+                });
+                event.target.classList.add('border-white/30', 'bg-white/10', 'text-white', 'font-semibold');
+                event.target.classList.remove('border-neutral-800', 'text-neutral-400');
+            }
+        }
+        
+        // Collection Slider Navigation
+        const collectionSlider = document.getElementById('collection-slider');
+        const prevBtn = document.getElementById('collection-prev');
+        const nextBtn = document.getElementById('collection-next');
+        
+        if (prevBtn && nextBtn && collectionSlider) {
+            prevBtn.addEventListener('click', () => {
+                collectionSlider.scrollBy({ left: -500, behavior: 'smooth' });
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                collectionSlider.scrollBy({ left: 500, behavior: 'smooth' });
+            });
+        }
+        
+        // --- Scroll Animations Logic ---
+        
+        const splitSection = document.getElementById('motorsport');
+        const leftPanel = document.getElementById('left-panel');
+        const rightPanel = document.getElementById('right-panel');
+        const centerContent = document.getElementById('center-content');
+        
+        const pleasureSection = document.getElementById('pleasure');
+        const pleasureText = document.getElementById('pleasure-text');
+        const pleasureImage = document.getElementById('pleasure-image');
+
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleSplitScroll();
+                    handlePleasureScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Pleasure Section Scroll Logic
+        function handlePleasureScroll() {
+            if(!pleasureSection) return;
+            const rect = pleasureSection.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+            
+            if (rect.top <= 0 && rect.bottom >= viewHeight) {
+                const totalScrollDistance = rect.height - viewHeight;
+                const scrolled = Math.abs(rect.top);
+                const progress = Math.min(Math.max(scrolled / totalScrollDistance, 0), 1);
+                
+                // Text slides in from left starting at 20% progress
+                if (progress > 0.15) {
+                    const textProgress = Math.min((progress - 0.15) / 0.3, 1);
+                    pleasureText.style.opacity = textProgress;
+                    pleasureText.style.transform = `translateX(${-80 + (80 * textProgress)}px)`;
+                } else {
+                    pleasureText.style.opacity = 0;
+                    pleasureText.style.transform = 'translateX(-80px)';
+                }
+                
+                // Image fades in starting at 35% progress
+                if (progress > 0.35) {
+                    const imageProgress = Math.min((progress - 0.35) / 0.3, 1);
+                    pleasureImage.style.opacity = imageProgress;
+                } else {
+                    pleasureImage.style.opacity = 0;
+                }
+            } else if (rect.top > 0) {
+                // Reset when scrolling back up
+                pleasureText.style.opacity = 0;
+                pleasureText.style.transform = 'translateX(-80px)';
+                pleasureImage.style.opacity = 0;
+            }
+        }
+        
+        // Split Panel Scroll Logic
+        function handleSplitScroll() {
+            if(!splitSection) return;
+            const rect = splitSection.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+            
+            if (rect.top <= 0 && rect.bottom >= viewHeight) {
+                const totalScrollDistance = rect.height - viewHeight;
+                const scrolled = Math.abs(rect.top);
+                const progress = Math.min(Math.max(scrolled / (totalScrollDistance * 0.7), 0), 1);
+
+                const moveAmount = progress * 40; 
+                
+                leftPanel.style.transform = `translateX(-${moveAmount}vw)`;
+                rightPanel.style.transform = `translateX(${moveAmount}vw)`;
+                
+                if (progress > 0.4) {
+                    centerContent.style.opacity = (progress - 0.4) * 2;
+                    centerContent.style.transform = `scale(${0.9 + (progress * 0.1)})`;
+                } else {
+                    centerContent.style.opacity = 0;
+                }
+            } else if (rect.top > 0) {
+                leftPanel.style.transform = `translateX(0)`;
+                rightPanel.style.transform = `translateX(0)`;
+                centerContent.style.opacity = 0;
+            }
+        }
+    </script>
+</body>
+</html>
