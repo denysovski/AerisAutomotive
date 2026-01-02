@@ -25,4 +25,6 @@ Aeris is a digital showcase inspired by the philosophy of Porsche-level engineer
 Many automotive websites rely on excess—overdesigned visuals or generic layouts. Aeris operates with restraint. The platform balances performance and luxury, letting precision, motion, and structure communicate value. From exploring performance models to customizing a vehicle or understanding engineering philosophy, Aeris delivers a digital experience that feels confident, engineered, and unmistakably performance-focused.
 
 ## Live preview
-Link to the website:
+Link to the website: https://denysovski.github.io/AerisAutomotive/
+
+<img alt="screencapture-127-0-0-1-5500-index1-html-2026-01-02-15_54_07" src="https://github.com/user-attachments/assets/acc5087a-f447-47d3-addd-81b2b7fd2932" />
