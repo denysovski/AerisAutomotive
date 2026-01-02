@@ -39,6 +39,11 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '0% 0%' },
+                            '50%': { backgroundPosition: '100% 100%' },
+                            '100%': { backgroundPosition: '0% 0%' },
                         }
                     }
                 }
@@ -199,7 +204,7 @@
     </header>
 
     <!-- Brand Philosophy -->
-    <section class="py-24 md:py-32 relative z-10">
+    <section class="py-24 md:py-32 relative z-10 bg-black">
         <div class="max-w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="space-y-8 reveal-on-scroll">
                 <span class="text-xs font-bold tracking-[0.2em] text-neutral-500 border-l-2 border-white pl-4 uppercase">Philosophy</span>
@@ -221,8 +226,12 @@
     </section>
 
     <!-- Featured Models -->
-    <section id="models" class="py-32 relative z-10 bg-gradient-to-b from-luxury-black to-neutral-900/20">
-        <div class="max-w-[90%] mx-auto mb-16 flex justify-between items-end reveal-on-scroll">
+    <section id="models" class="py-32 relative z-10 overflow-hidden">
+        <!-- Animated gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-neutral-900/30 to-black animate-pulse" style="animation-duration: 8s;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-white/[0.02] to-transparent" style="animation: shimmer 4s ease-in-out infinite; background-size: 100% 200%;"></div>
+        <div class="absolute inset-0 z-0"></div>
+        <div class="max-w-[90%] mx-auto mb-16 flex justify-between items-end reveal-on-scroll relative z-10">
             <div>
                 <span class="text-xs font-bold text-neutral-500 tracking-widest uppercase mb-2 block">The Garage</span>
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white">The Collection</h2>
@@ -238,7 +247,7 @@
         </div>
 
         <!-- Slider Container -->
-        <div id="collection-slider" class="overflow-x-auto pb-12 hide-scrollbar px-[5%] md:px-[5%] flex space-x-8 snap-x snap-mandatory" style="scroll-behavior: smooth;">
+        <div id="collection-slider" class="overflow-x-auto pb-12 hide-scrollbar px-[5%] md:px-[5%] flex space-x-8 snap-x snap-mandatory relative z-10" style="scroll-behavior: smooth;">
             <!-- Card 1 -->
             <div class="min-w-[85vw] md:min-w-[450px] bg-neutral-900/40 border border-white/5 backdrop-blur-sm rounded-sm group cursor-pointer snap-center reveal-on-scroll hover:-translate-y-2 transition-transform duration-500">
                 <div class="h-[300px] md:h-[350px] overflow-hidden relative">
@@ -394,9 +403,9 @@
                 
                 <!-- Left: Text Content -->
                 <div id="pleasure-text" class="space-y-6" style="opacity: 0; transform: translateX(-80px); will-change: transform, opacity;">
-                    <span class="block text-xs font-bold text-green-500 uppercase tracking-widest mb-6 border-l-2 border-green-500 pl-4">Luxury Design</span>
+                    <span class="block text-xs font-bold uppercase tracking-widest mb-6 border-l-2 pl-4 text-neutral-500 border-white">Luxury Design</span>
                     <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[1.1]">
-                        Car built for<br>
+                        Cars built for<br>
                         <span class="text-neutral-500 italic font-serif font-thin">pleasure.</span>
                     </h2>
                     <p class="text-base md:text-lg text-neutral-400 font-light leading-relaxed max-w-xl">
@@ -405,21 +414,21 @@
                     <div class="grid grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <div class="flex items-center space-x-3">
-                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-white"></iconify-icon>
                                 <span class="text-sm text-neutral-300">Premium Materials</span>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-white"></iconify-icon>
                                 <span class="text-sm text-neutral-300">Ergonomic Design</span>
                             </div>
                         </div>
                         <div class="space-y-2">
                             <div class="flex items-center space-x-3">
-                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-white"></iconify-icon>
                                 <span class="text-sm text-neutral-300">Advanced Tech</span>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <iconify-icon icon="lucide:check-circle" width="20" class="text-green-500"></iconify-icon>
+                                <iconify-icon icon="lucide:check-circle" width="20" class="text-white"></iconify-icon>
                                 <span class="text-sm text-neutral-300">Acoustic Perfection</span>
                             </div>
                         </div>
@@ -434,9 +443,11 @@
                 <div id="pleasure-image" class="relative" style="opacity: 0; will-change: opacity;">
                     <div class="relative md:scale-110 lg:scale-125">
                         <div class="absolute inset-0 bg-gradient-to-tr from-[#202020] to-transparent blur-3xl opacity-30 rounded-lg"></div>
-                        <img src="porsche-section.png" 
-                             alt="Porsche Interior" 
-                             class="relative w-full h-auto rounded-lg shadow-2xl">
+                        <div class="relative w-full">
+                            <img src="porsche-used.jpg" 
+                                 alt="Porsche Interior" 
+                                 class="relative w-full h-auto rounded-lg shadow-2xl">
+                        </div>
                     </div>
                 </div>
 
@@ -445,23 +456,140 @@
         </div>
     </section>
 
-    <!-- Customization Configurator -->
+    <!-- Technology & Innovation -->
+    <section id="innovation" class="py-24 bg-luxury-black relative z-10">
+        <div class="max-w-[80%] mx-auto">
+            <div class="mb-16 reveal-on-scroll">
+                <span class="text-xs font-bold text-neutral-500 tracking-widest uppercase">Innovation</span>
+                <h2 class="text-3xl md:text-5xl font-medium mt-4 tracking-tight">Engineered for Tomorrow</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-75 rounded-lg">
+                    <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:cpu" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Neural AI Core</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Advanced autopilot capabilities powered by our proprietary silicon, learning your driving patterns in real-time.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-100 rounded-lg">
+                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:zap" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Solid State Power</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Next-generation battery architecture delivering 500+ miles of range with sub-15 minute charging.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-150 rounded-lg">
+                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
+                        <iconify-icon icon="lucide:wind" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3 text-white">Active Aero</h3>
+                    <p class="text-sm text-neutral-400 leading-relaxed">Surfaces that adapt to airflow, optimizing downforce for corners and drag for straight-line speed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle Statement Section -->
+    <section class="py-16 md:py-24 relative z-10 overflow-hidden">
+        <!-- Static gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-blue-950/40 to-neutral-900"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/50"></div>
+
+        <div class="max-w-2xl mx-auto px-6 relative z-10 text-center space-y-8 reveal-on-scroll">
+            <!-- Top accent line -->
+            <div class="flex items-center justify-center space-x-4">
+                <div class="w-12 h-px bg-gradient-to-r from-transparent to-white/40"></div>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Philosophy</span>
+                <div class="w-12 h-px bg-gradient-to-l from-transparent to-white/40"></div>
+            </div>
+
+            <!-- Main quote -->
+            <div class="space-y-6">
+                <h2 class="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-tight">
+                    A Porsche is a
+                    <span class="block font-bold mt-2 text-white">lifestyle,</span>
+                    <span class="block font-bold text-white">not status.</span>
+                </h2>
+            </div>
+
+            <!-- Supporting text -->
+            <div class="space-y-4">
+                <p class="text-base md:text-lg text-neutral-400 font-light leading-relaxed max-w-xl mx-auto">
+                    Ownership is a responsibility. Be mindful. Be intentional. Every choice you make defines the legacy you leave behind.
+                </p>
+            </div>
+
+            <!-- Bottom accent -->
+            <div class="flex justify-center pt-6">
+                <div class="w-16 h-px bg-gradient-to-r from-white/20 via-white/40 to-white/20"></div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="pt-4">
+                <button class="px-8 py-3 border border-white/30 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-sm group">
+                    <span class="inline-flex items-center space-x-2">
+                        <span>Learn More</span>
+                        <iconify-icon icon="lucide:arrow-right" width="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Split Sponsorship Scroll Animation Section -->
+    <section id="motorsport" class="h-[250vh] relative z-10" style="view-timeline-name: --sponsor-scroll;">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-luxury-black" id="sticky-container">
+            
+            <!-- Center Content (Revealed) -->
+            <div class="absolute z-10 text-center space-y-6 opacity-0 scale-90 transition-all duration-700 delay-100" id="center-content">
+                <span class="text-xs font-bold text-blue-500 tracking-[0.3em] uppercase">Global Partners</span>
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter text-white">SPONSORSHIPS</h2>
+                <p class="max-w-md mx-auto text-neutral-400 text-sm leading-relaxed">Fueling the future of competitive racing with sustainable energy and unparalleled precision.</p>
+                <button class="px-8 py-3 border border-white/20 bg-white/5 backdrop-blur text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all rounded-sm">
+                    Read More
+                </button>
+            </div>
+
+            <!-- Left Panel (Sliding) -->
+            <div class="absolute left-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="left-panel">
+                <div class="absolute inset-0 bg-[url('porsche1.avif')] bg-cover bg-right grayscale opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                <div class="absolute bottom-12 left-12">
+                    <h3 class="text-xl font-bold tracking-tight">FORMULA E</h3>
+                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Official Partner</p>
+                </div>
+            </div>
+
+            <!-- Right Panel (Sliding) -->
+            <div class="absolute right-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="right-panel">
+                <div class="absolute inset-0 bg-[url('porsche2.avif')] bg-cover bg-left grayscale opacity-60"></div>
+                <div class="absolute inset-0 bg-gradient-to-l from-black/80 to-transparent"></div>
+                <div class="absolute bottom-12 right-12 text-right">
+                    <h3 class="text-xl font-bold tracking-tight">LE MANS</h3>
+                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Endurance Team</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Customization Configurator / Build Your Legacy -->
     <section id="bespoke" class="py-24 bg-black overflow-hidden relative z-10">
         <!-- Decorative Background Text -->
         <h2 class="absolute -right-24 top-24 text-[12rem] md:text-[15rem] font-bold text-white/[0.02] pointer-events-none select-none leading-none tracking-tighter">
             BESPOKE
         </h2>
 
-        <div class="max-w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 h-full relative z-10">
+        <div class="max-w-full lg:max-w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:gap-24 h-full relative z-10 px-4 md:px-6 lg:px-0">
             
             <!-- Left: Visualizer -->
             <div class="lg:col-span-8 flex flex-col justify-center reveal-on-scroll">
-                <div class="relative w-full aspect-[16/9] bg-gradient-to-br from-neutral-800/30 to-black rounded-lg flex items-center justify-center border border-white/10 p-8 shadow-2xl">
-                    <img id="config-image" src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2525&auto=format&fit=crop" alt="Configuration" class="w-full h-full object-contain drop-shadow-2xl grayscale-[20%] transition-all duration-500">
-                    
-                    <!-- Hotspots -->
-                    <div class="absolute top-1/3 left-1/2 w-3 h-3 bg-white rounded-full animate-ping opacity-50 cursor-pointer"></div>
-                    <div class="absolute top-1/3 left-1/2 w-3 h-3 border-2 border-white rounded-full cursor-pointer hover:scale-150 transition-transform"></div>
+                <div class="relative w-full aspect-[16/9] bg-gradient-to-br from-neutral-800/30 to-black rounded-lg flex items-center justify-center border border-white/10 p-4 md:p-8 shadow-2xl">
+                    <img id="config-image" src="Porsche1.webp" alt="Configuration" class="w-full h-full object-contain drop-shadow-2xl grayscale-[20%] transition-all duration-500">
                 </div>
                 <div class="flex justify-between items-center mt-6 text-xs font-mono text-neutral-500 uppercase tracking-wider">
                     <span>Rotation: 45°</span>
@@ -470,10 +598,10 @@
             </div>
 
             <!-- Right: Controls -->
-            <div class="lg:col-span-4 flex flex-col justify-center space-y-8 reveal-on-scroll delay-100">
+            <div class="lg:col-span-4 flex flex-col justify-center space-y-6 lg:space-y-8 reveal-on-scroll delay-100">
                 <div>
-                    <h3 class="text-3xl font-bold tracking-tight mb-2">Build Your Legacy</h3>
-                    <p class="text-sm text-neutral-400">Curate every nuance of your vehicle.</p>
+                    <h3 class="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight mb-2">Build Your Legacy</h3>
+                    <p class="text-xs md:text-sm text-neutral-400">Curate every nuance of your vehicle.</p>
                 </div>
 
                 <!-- Model Selector -->
@@ -481,15 +609,15 @@
                     <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Select Model</label>
                     <div class="grid grid-cols-3 gap-3">
                         <button onclick="changeConfig('model', 'sport')" id="model-sport" class="model-btn px-3 py-4 border border-white/30 bg-white/10 rounded text-[10px] text-white transition-all font-semibold uppercase tracking-wider flex flex-col items-center space-y-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3774/3774278.png" class="w-8 h-8 invert opacity-90" alt="Sport">
+                            <img src="Porsche1.webp" class="w-8 h-8 invert opacity-90" alt="Sport">
                             <span>Sport</span>
                         </button>
                         <button onclick="changeConfig('model', 'suv')" id="model-suv" class="model-btn px-3 py-4 border border-neutral-800 rounded text-[10px] text-neutral-400 transition-all uppercase tracking-wider hover:bg-white hover:text-black hover:border-white flex flex-col items-center space-y-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3097/3097138.png" class="w-8 h-8 opacity-50" alt="SUV">
+                            <img src="Porsche1.webp" class="w-8 h-8 opacity-50" alt="SUV">
                             <span>SUV</span>
                         </button>
                         <button onclick="changeConfig('model', 'sedan')" id="model-sedan" class="model-btn px-3 py-4 border border-neutral-800 rounded text-[10px] text-neutral-400 transition-all uppercase tracking-wider hover:bg-white hover:text-black hover:border-white flex flex-col items-center space-y-2">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3202/3202003.png" class="w-8 h-8 opacity-50" alt="Sedan">
+                            <img src="Porsche1.webp" class="w-8 h-8 opacity-50" alt="Sedan">
                             <span>Sedan</span>
                         </button>
                     </div>
@@ -500,12 +628,12 @@
                     <!-- Exterior Color -->
                     <div class="space-y-3">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Exterior Paint</label>
-                        <div class="flex space-x-3">
-                            <button onclick="changeConfig('paint', 'void')" class="paint-btn w-10 h-10 rounded-full bg-[#0a0a0a] border-2 border-white/30 hover:scale-110 transition-transform ring-2 ring-white ring-offset-2 ring-offset-black" aria-label="Void Black"></button>
-                            <button onclick="changeConfig('paint', 'ghost')" class="paint-btn w-10 h-10 rounded-full bg-[#e5e5e5] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Ghost White"></button>
-                            <button onclick="changeConfig('paint', 'midnight')" class="paint-btn w-10 h-10 rounded-full bg-[#1e293b] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Midnight Blue"></button>
-                            <button onclick="changeConfig('paint', 'ember')" class="paint-btn w-10 h-10 rounded-full bg-[#7f1d1d] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Ember Red"></button>
-                            <button onclick="changeConfig('paint', 'graphite')" class="paint-btn w-10 h-10 rounded-full bg-[#52525b] border-2 border-neutral-700 hover:scale-110 transition-transform" aria-label="Graphite"></button>
+                        <div class="flex space-x-3 px-2">
+                            <button onclick="changeConfig('paint', 'void')" class="paint-btn w-10 h-10 rounded-full bg-[#0a0a0a] border-2 border-white/30 hover:scale-110 transition-transform ring-2 ring-white ring-offset-2 ring-offset-black flex-shrink-0" aria-label="Void Black"></button>
+                            <button onclick="changeConfig('paint', 'ghost')" class="paint-btn w-10 h-10 rounded-full bg-[#e5e5e5] border-2 border-neutral-700 hover:scale-110 transition-transform flex-shrink-0" aria-label="Ghost White"></button>
+                            <button onclick="changeConfig('paint', 'midnight')" class="paint-btn w-10 h-10 rounded-full bg-[#1e293b] border-2 border-neutral-700 hover:scale-110 transition-transform flex-shrink-0" aria-label="Midnight Blue"></button>
+                            <button onclick="changeConfig('paint', 'ember')" class="paint-btn w-10 h-10 rounded-full bg-[#7f1d1d] border-2 border-neutral-700 hover:scale-110 transition-transform flex-shrink-0" aria-label="Ember Red"></button>
+                            <button onclick="changeConfig('paint', 'graphite')" class="paint-btn w-10 h-10 rounded-full bg-[#52525b] border-2 border-neutral-700 hover:scale-110 transition-transform flex-shrink-0" aria-label="Graphite"></button>
                         </div>
                     </div>
 
@@ -567,18 +695,22 @@
                     <div class="space-y-3">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Autonomous Suite</label>
                         <div class="space-y-2">
-                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
-                                <span class="text-[10px] text-neutral-300">Full Self-Driving</span>
-                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white" checked>
-                            </label>
-                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
-                                <span class="text-[10px] text-neutral-300">Enhanced Autopilot</span>
-                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white">
-                            </label>
-                            <label class="flex items-center justify-between px-3 py-2.5 border border-neutral-800 rounded hover:border-white/30 transition-all cursor-pointer">
-                                <span class="text-[10px] text-neutral-300">Parking Assist Pro</span>
-                                <input type="checkbox" class="w-4 h-4 rounded bg-neutral-800 border-neutral-700 text-white focus:ring-white" checked>
-                            </label>
+                            <button onclick="toggleFeature(this)" class="feature-toggle w-full flex items-center justify-between px-3 py-3 border border-neutral-700 rounded hover:border-white/50 transition-all cursor-pointer bg-neutral-900/30 active">
+                                <span class="text-[10px] text-neutral-300 font-medium">Full Self-Driving</span>
+                                <div class="relative w-6 h-6 bg-gradient-to-br from-white to-neutral-300 rounded-sm flex items-center justify-center flex-shrink-0">
+                                    <iconify-icon icon="lucide:check" width="16" class="text-black font-bold"></iconify-icon>
+                                </div>
+                            </button>
+                            <button onclick="toggleFeature(this)" class="feature-toggle w-full flex items-center justify-between px-3 py-3 border border-neutral-700 rounded hover:border-white/50 transition-all cursor-pointer bg-neutral-900/30">
+                                <span class="text-[10px] text-neutral-300 font-medium">Enhanced Autopilot</span>
+                                <div class="relative w-6 h-6 border-2 border-neutral-600 rounded-sm flex items-center justify-center flex-shrink-0 hover:border-white transition-colors"></div>
+                            </button>
+                            <button onclick="toggleFeature(this)" class="feature-toggle w-full flex items-center justify-between px-3 py-3 border border-neutral-700 rounded hover:border-white/50 transition-all cursor-pointer bg-neutral-900/30 active">
+                                <span class="text-[10px] text-neutral-300 font-medium">Parking Assist Pro</span>
+                                <div class="relative w-6 h-6 bg-gradient-to-br from-white to-neutral-300 rounded-sm flex items-center justify-center flex-shrink-0">
+                                    <iconify-icon icon="lucide:check" width="16" class="text-black font-bold"></iconify-icon>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -591,80 +723,6 @@
                     <button class="bg-white text-black px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors rounded-sm shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                         Finalize
                     </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Split Sponsorship Scroll Animation Section -->
-    <section id="motorsport" class="h-[250vh] relative z-10" style="view-timeline-name: --sponsor-scroll;">
-        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-luxury-black" id="sticky-container">
-            
-            <!-- Center Content (Revealed) -->
-            <div class="absolute z-10 text-center space-y-6 opacity-0 scale-90 transition-all duration-700 delay-100" id="center-content">
-                <span class="text-xs font-bold text-blue-500 tracking-[0.3em] uppercase">Global Partners</span>
-                <h2 class="text-5xl md:text-7xl font-bold tracking-tighter text-white">SPONSORSHIPS</h2>
-                <p class="max-w-md mx-auto text-neutral-400 text-sm leading-relaxed">Fueling the future of competitive racing with sustainable energy and unparalleled precision.</p>
-                <button class="px-8 py-3 border border-white/20 bg-white/5 backdrop-blur text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all rounded-sm">
-                    Read More
-                </button>
-            </div>
-
-            <!-- Left Panel (Sliding) -->
-            <div class="absolute left-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="left-panel">
-                <div class="absolute inset-0 bg-[url('porsche1.avif')] bg-cover bg-right grayscale opacity-60"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
-                <div class="absolute bottom-12 left-12">
-                    <h3 class="text-xl font-bold tracking-tight">FORMULA E</h3>
-                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Official Partner</p>
-                </div>
-            </div>
-
-            <!-- Right Panel (Sliding) -->
-            <div class="absolute right-0 top-0 bottom-0 w-[50vw] h-full z-20 split-panel bg-neutral-900 overflow-hidden" id="right-panel">
-                <div class="absolute inset-0 bg-[url('porsche2.avif')] bg-cover bg-left grayscale opacity-60"></div>
-                <div class="absolute inset-0 bg-gradient-to-l from-black/80 to-transparent"></div>
-                <div class="absolute bottom-12 right-12 text-right">
-                    <h3 class="text-xl font-bold tracking-tight">LE MANS</h3>
-                    <p class="text-xs text-neutral-400 mt-2 uppercase tracking-widest">Endurance Team</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Technology & Innovation -->
-    <section id="innovation" class="py-24 bg-luxury-black relative z-10">
-        <div class="max-w-[80%] mx-auto">
-            <div class="mb-16 reveal-on-scroll">
-                <span class="text-xs font-bold tracking-[0.2em] text-blue-500 uppercase">Innovation</span>
-                <h2 class="text-3xl md:text-5xl font-medium mt-4 tracking-tight">Engineered for Tomorrow</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-75 rounded-lg">
-                    <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
-                        <iconify-icon icon="lucide:cpu" width="24" stroke-width="1.5"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3 text-white">Neural AI Core</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Advanced autopilot capabilities powered by our proprietary silicon, learning your driving patterns in real-time.</p>
-                </div>
-                <!-- Feature 2 -->
-                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-100 rounded-lg">
-                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
-                        <iconify-icon icon="lucide:zap" width="24" stroke-width="1.5"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3 text-white">Solid State Power</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Next-generation battery architecture delivering 500+ miles of range with sub-15 minute charging.</p>
-                </div>
-                <!-- Feature 3 -->
-                <div class="bg-neutral-900/20 border border-white/5 p-10 hover:bg-neutral-900/40 hover:border-white/20 transition-all duration-300 group reveal-on-scroll delay-150 rounded-lg">
-                     <div class="w-12 h-12 bg-neutral-800 rounded-full flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-black transition-colors">
-                        <iconify-icon icon="lucide:wind" width="24" stroke-width="1.5"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3 text-white">Active Aero</h3>
-                    <p class="text-sm text-neutral-400 leading-relaxed">Surfaces that adapt to airflow, optimizing downforce for corners and drag for straight-line speed.</p>
                 </div>
             </div>
         </div>
@@ -686,6 +744,101 @@
                     Contact Concierge
                 </button>
             </div>
+        </div>
+    </section>
+
+    <!-- Latest News & Innovations Section -->
+    <section class="py-24 md:py-32 relative z-10 bg-gradient-to-b from-black via-neutral-900/40 to-black shadow-2xl">
+        <div class="max-w-[80%] mx-auto">
+            <div class="mb-20 reveal-on-scroll">
+                <span class="text-xs font-bold tracking-[0.2em] text-neutral-500 uppercase">Latest Updates</span>
+                <h2 class="text-3xl md:text-5xl font-medium mt-4 tracking-tight text-white">Industry Innovations</h2>
+            </div>
+
+            <!-- News Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Card 1 -->
+                <div class="group bg-gradient-to-br from-neutral-900/40 to-neutral-900/20 border border-white/10 rounded-lg overflow-hidden hover:border-white/30 transition-all duration-300 reveal-on-scroll">
+                    <div class="relative h-64 overflow-hidden bg-neutral-800/50">
+                        <img src="image-porsche.jpg" alt="Battery Systems" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-8 space-y-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Technology</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-white group-hover:text-neutral-100 transition-colors">Next-Generation Battery Systems</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Revolutionary solid-state battery technology achieving 600+ miles of range with sub-10 minute charging capabilities.</p>
+                        <div class="flex items-center space-x-2 text-xs text-neutral-500 pt-4 border-t border-white/5">
+                            <span>January 2026</span>
+                            <span>•</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-gradient-to-br from-neutral-900/40 to-neutral-900/20 border border-white/10 rounded-lg overflow-hidden hover:border-white/30 transition-all duration-300 reveal-on-scroll delay-100">
+                    <div class="relative h-64 overflow-hidden bg-neutral-800/50">
+                        <img src="image-porsche1.avif" alt="Carbon Neutral Manufacturing" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    </div>
+                    <div class="p-8 space-y-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400">Sustainability</span>
+                        <h3 class="text-xl md:text-2xl font-bold text-white group-hover:text-neutral-100 transition-colors">Carbon-Neutral Manufacturing</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Commitment to achieving 100% carbon-neutral production across all facilities by 2027 through renewable energy integration.</p>
+                        <div class="flex items-center space-x-2 text-xs text-neutral-500 pt-4 border-t border-white/5">
+                            <span>January 2026</span>
+                            <span>•</span>
+                            <span>7 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Newsletter Form Section -->
+    <section class="py-24 md:py-32 relative z-10 bg-black border-t border-neutral-900">
+        <div class="max-w-2xl mx-auto px-6 md:px-0">
+            <div class="mb-16 text-center reveal-on-scroll">
+                <span class="text-xs font-bold tracking-[0.2em] text-neutral-500 uppercase">Get in Touch</span>
+                <h2 class="text-3xl md:text-5xl font-medium mt-4 tracking-tight text-white">Stay Connected</h2>
+                <p class="text-neutral-400 mt-6 text-base font-light">Receive exclusive updates on new models, technology breakthroughs, and invitations to private events.</p>
+            </div>
+
+            <!-- Luxury Contact Form -->
+            <form class="space-y-6 bg-gradient-to-br from-neutral-900/40 to-neutral-900/20 border border-white/10 rounded-lg p-8 md:p-12 reveal-on-scroll delay-100">
+                <!-- Name Input -->
+                <div class="space-y-3">
+                    <label class="text-xs font-bold uppercase tracking-widest text-neutral-400">Full Name</label>
+                    <input type="text" placeholder="Enter your full name" class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white/30 transition-colors text-sm">
+                </div>
+
+                <!-- Email Input -->
+                <div class="space-y-3">
+                    <label class="text-xs font-bold uppercase tracking-widest text-neutral-400">Email Address</label>
+                    <input type="email" placeholder="your@email.com" class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white/30 transition-colors text-sm">
+                </div>
+
+                <!-- Phone Input -->
+                <div class="space-y-3">
+                    <label class="text-xs font-bold uppercase tracking-widest text-neutral-400">Phone Number</label>
+                    <input type="tel" placeholder="+1 (555) 000-0000" class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white/30 transition-colors text-sm">
+                </div>
+
+                <!-- Message -->
+                <div class="space-y-3">
+                    <label class="text-xs font-bold uppercase tracking-widest text-neutral-400">Message</label>
+                    <textarea placeholder="Tell us how we can help..." rows="4" class="w-full px-4 py-3 bg-neutral-900/50 border border-white/10 rounded-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white/30 transition-colors text-sm resize-none"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full px-8 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 rounded-sm mt-8 group">
+                    <span class="inline-flex items-center justify-center space-x-2">
+                        <span>Send Message</span>
+                        <iconify-icon icon="lucide:arrow-right" width="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </span>
+                </button>
+            </form>
         </div>
     </section>
 
@@ -806,9 +959,9 @@
         };
 
         const carImages = {
-            sport: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2525&auto=format&fit=crop',
-            suv: 'https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg',
-            sedan: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2670&auto=format&fit=crop'
+            sport: 'https://compare.porsche.com/_next/image?url=https%3A%2F%2Fprs.porsche.com%2Fiod%2Fimage%2FZA%2F992452%2F1%2FN4Igxg9gdgZglgcxALlAQynAtmgLnaAZxQG0BdAGnDSwFMAnNFUOAExRFoA9cBaAGwgB3XoTa1e9RAAtcIKhAAO%2BIsxAA3NFIxzkIXPQCutQmDT9aIAL5WqtKOrj1odKLpbs9AdWlxcDCAgsAEF%2BRWkmBWUCKGJUGyp%2BGXwoJFQQNg4AEWCATXkQJRVY5gSQRWdWQzB3DM8QAE4GgCYAFgBWZoKimLjQSEM3egBPAGEIVks9AC1ggqwJ2n5c2i0UZoAGZoA2KOK4khANgEkAZgKNgDl2i8uAIQuABQ2CgEY7gAk3gHEADjevlRXgAZACKb0u5yBlzmQMeAHY3gAVLpAgAarzeaNhIGao0RVGaWRehIAaq0Cs0vASQKc7lDaQAxACiBVOwO2bNBSLZAGUKVRTgBVb4FVrBBmtYli76PMXHTlUVocsVCxkFdq-aYatGjDXTOVUbbBEkgbZ3HHbZmYo3M1lGxkCs2MgBSBW2Z3dLqy7oA0g13ZdSe6AEp6o1o4NUeHBX0FeG%2BhnwpG8%2BMi%2BNo1EgeG5f5UX4uoUFX7AwEgX6XGm-R5x-NIm3l0miqgNdoPFvBH0tu6mhounENUnAgoNLw8lvTe0gYJChtZBMFZkbHHMgCyWcZlzzIEZSNNjLRAao31ezZA3w%2BDO%2BKIK31JDeOXgZLua7ZALuZTpdwKzvt%2B4ZAX1gizYFryyENhyoUFXjdKCsidUElwKUEPgbUEXTQ0Es1BEMjxAUFSVNIU0RpUk31JUZTVJRks1JX1aOBKiQ1IpFOTIGxbBAQhaFwFIED6EAYAgegcF0cpUgKAwMEIRQtHsXQDGMGwgA%3FclientId%3Dcompare&w=3840&q=75',
+            suv: 'https://compare.porsche.com/_next/image?url=https%3A%2F%2Fprs.porsche.com%2Fiod%2Fimage%2FZA%2F992452%2F1%2FN4Igxg9gdgZglgcxALlAQynAtmgLnaAZxQG0BdAGnDSwFMAnNFUOAExRFoA9cBaAGwgB3XoTa1e9RAAtcIKhAAO%2BIsxAA3NFIxzkIXPQCutQmDT9aIAL5WqtKOrj1odKLpbs9AdWlxcDCAgsAEF%2BRWkmBWUCKGJUGyp%2BGXwoJFQQNg4AEWCATXkQJRVY5gSQRWdWQzB3DM8QAE4GgCYAFgBWZoKimLjQSEM3egBPAGEIVks9AC1ggqwJ2n5c2i0UZoAGZoA2KOK4khANgEkAZgKNgDl2i8uAIQuABQ2CgEY7gAk3gHEADjevlRXgAZACKb0u5yBlzmQMeAHY3gAVLpAgAarzeaNhIGao0RVGaWRehIAaq0Cs0vASQKc7lDaQAxACiBVOwO2bNBSLZAGUKVRTgBVb4FVrBBmtYli76PMXHTlUVocsVCxkFdq-aYatGjDXTOVUbbBEkgbZ3HHbZmYo3M1lGxkCs2MgBSBW2Z3dLqy7oA0g13ZdSe6AEp6o1o4NUeHBX0FeG%2BhnwpG8%2BMi%2BNo1EgeG5f5UX4uoUFX7AwEgX6XGm-R5x-NIm3l0miqgNdoPFvBH0tu6mhounENUnAgoNLw8lvTe0gYJChtZBMFZkbHHMgCyWcZlzzIEZSNNjLRAao31ezZA3w%2BDO%2BKIK31JDeOXgZLua7ZALuZTpdwKzvt%2B4ZAX1gizYFryyENhyoUFXjdKCsidUElwKUEPgbUEXTQ0Es1BEMjxAUFSVNIU0RpUk31JUZTVJRks1JX1aOBKiQ1IpFOTIGxbBAQhaFwFIED6EAYAgegcF0cpUgKAwMEIRQtHsXQDGMGwgA%3FclientId%3Dcompare&w=3840&q=75',
+            sedan: 'https://compare.porsche.com/_next/image?url=https%3A%2F%2Fprs.porsche.com%2Fiod%2Fimage%2FZA%2F992452%2F1%2FN4Igxg9gdgZglgcxALlAQynAtmgLnaAZxQG0BdAGnDSwFMAnNFUOAExRFoA9cBaAGwgB3XoTa1e9RAAtcIKhAAO%2BIsxAA3NFIxzkIXPQCutQmDT9aIAL5WqtKOrj1odKLpbs9AdWlxcDCAgsAEF%2BRWkmBWUCKGJUGyp%2BGXwoJFQQNg4AEWCATXkQJRVY5gSQRWdWQzB3DM8QAE4GgCYAFgBWZoKimLjQSEM3egBPAGEIVks9AC1ggqwJ2n5c2i0UZoAGZoA2KOK4khANgEkAZgKNgDl2i8uAIQuABQ2CgEY7gAk3gHEADjevlRXgAZACKb0u5yBlzmQMeAHY3gAVLpAgAarzeaNhIGao0RVGaWRehIAaq0Cs0vASQKc7lDaQAxACiBVOwO2bNBSLZAGUKVRTgBVb4FVrBBmtYli76PMXHTlUVocsVCxkFdq-aYatGjDXTOVUbbBEkgbZ3HHbZmYo3M1lGxkCs2MgBSBW2Z3dLqy7oA0g13ZdSe6AEp6o1o4NUeHBX0FeG%2BhnwpG8%2BMi%2BNo1EgeG5f5UX4uoUFX7AwEgX6XGm-R5x-NIm3l0miqgNdoPFvBH0tu6mhounENUnAgoNLw8lvTe0gYJChtZBMFZkbHHMgCyWcZlzzIEZSNNjLRAao31ezZA3w%2BDO%2BKIK31JDeOXgZLua7ZALuZTpdwKzvt%2B4ZAX1gizYFryyENhyoUFXjdKCsidUElwKUEPgbUEXTQ0Es1BEMjxAUFSVNIU0RpUk31JUZTVJRks1JX1aOBKiQ1IpFOTIGxbBAQhaFwFIED6EAYAgegcF0cpUgKAwMEIRQtHsXQDGMGwgA%3FclientId%3Dcompare&w=3840&q=75'
         };
 
         function changeConfig(type, value) {
@@ -874,6 +1027,31 @@
                 });
                 event.target.classList.add('border-white/30', 'bg-white/10', 'text-white', 'font-semibold');
                 event.target.classList.remove('border-neutral-800', 'text-neutral-400');
+            }
+        }
+        
+        // Feature toggle function for custom checkboxes
+        function toggleFeature(button) {
+            button.classList.toggle('active');
+            const icon = button.querySelector('iconify-icon');
+            const checkmark = button.querySelector('div');
+            
+            if (button.classList.contains('active')) {
+                checkmark.classList.remove('border-2', 'border-neutral-600');
+                checkmark.classList.add('bg-gradient-to-br', 'from-white', 'to-neutral-300');
+                if (icon) {
+                    icon.style.display = 'block';
+                } else {
+                    checkmark.innerHTML = '<iconify-icon icon="lucide:check" width="16" class="text-black font-bold"></iconify-icon>';
+                }
+            } else {
+                checkmark.classList.remove('bg-gradient-to-br', 'from-white', 'to-neutral-300');
+                checkmark.classList.add('border-2', 'border-neutral-600');
+                if (icon) {
+                    icon.style.display = 'none';
+                } else {
+                    checkmark.innerHTML = '';
+                }
             }
         }
         
